@@ -80,4 +80,4 @@ elif option == "✂️ Split PDF":
 
 # Footer 
 st.markdown("---")
-st.markdown("© 2025 All-in-One Document Converter & Organizer | Created by Fiza")
+st.markdown("© 2025 All-in-One Document Converter & Organizer | Created by Fiza Asif")
