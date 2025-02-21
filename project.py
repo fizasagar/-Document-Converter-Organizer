@@ -25,30 +25,32 @@ option = st.radio("Select an option:", [
     "✂️ Split PDF"
 ])
 
-# Image to PDF Conversion
 if option == "📷 Image to PDF":
     st.subheader("📷 Convert Images to a Single PDF")
     st.write("Upload multiple images (JPG or PNG), and merge them into a single PDF file.")
     
     uploaded_images = st.file_uploader("Upload Images", type=["jpg", "png"], accept_multiple_files=True)
-    
+
     if uploaded_images:
         images = []
-        for img in uploaded_images:
-            try:
-                image = Image.open(img).convert("RGB")
-                images.append(image)
-            except Exception as e:
-                st.error(f"Error processing image: {e}")
+        
+        # Convert images to RGB format
+        try:
+            for img in uploaded_images:
+                image = Image.open(img)
+                images.append(image.convert("RGB"))
+        except Exception as e:
+            st.error(f"❌ Image processing error: {str(e)}")
         
         if images and st.button("Convert to PDF"):
-            pdf_buffer = BytesIO()
-            if len(images) > 1:
-                images[0].save(pdf_buffer, save_all=True, append_images=images[1:])
-            else:
-                images[0].save(pdf_buffer, format="PDF")
-            pdf_buffer.seek(0)
-            st.download_button("Download PDF", pdf_buffer, "converted.pdf", "application/pdf")
+            try:
+                pdf_buffer = BytesIO()
+                images[0].save(pdf_buffer, format="PDF", save_all=True, append_images=images[1:])
+                pdf_buffer.seek(0)
+                st.download_button("📥 Download PDF", pdf_buffer, "converted.pdf", "application/pdf")
+            except Exception as e:
+                st.error(f"⚠️ PDF conversion failed: {str(e)}")
+
 
 # PDF to Image Conversion
 elif option == "📄 PDF to Image":
