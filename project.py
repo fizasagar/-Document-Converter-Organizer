@@ -48,9 +48,9 @@ if option == "📷 Image to PDF":
                 images[0].save(pdf_buffer, format="PDF", save_all=True, append_images=images[1:])
                 pdf_buffer.seek(0)
                 st.download_button("📥 Download PDF", pdf_buffer, "converted.pdf", "application/pdf")
+                st.success("✅ Your images have been successfully converted to PDF!")
             except Exception as e:
                 st.error(f"⚠️ PDF conversion failed: {str(e)}")
-
 
 # PDF to Image Conversion
 elif option == "📄 PDF to Image":
@@ -67,6 +67,7 @@ elif option == "📄 PDF to Image":
                 img.save(buffer, format="PNG")
                 buffer.seek(0)
                 st.download_button(f"Download Page {i+1} as PNG", buffer, f"page_{i+1}.png", "image/png")
+            st.success("✅ Your PDF has been successfully converted to images!")
         except Exception as e:
             st.error(f"Error processing PDF: {e}")
 
@@ -89,6 +90,7 @@ elif option == "📑 Merge PDFs":
         merger.write(merged_pdf)
         merged_pdf.seek(0)
         st.download_button("Download Merged PDF", merged_pdf, "merged.pdf", "application/pdf")
+        st.success("✅ Your PDFs have been successfully merged!")
 
 # Split a PDF into Multiple Pages
 elif option == "✂️ Split PDF":
@@ -107,9 +109,10 @@ elif option == "✂️ Split PDF":
                 writer.write(pdf_buffer)
                 pdf_buffer.seek(0)
                 st.download_button(f"Download Page {i+1}", pdf_buffer, f"Page_{i+1}.pdf", "application/pdf")
+            st.success("✅ Your PDF has been successfully split into separate pages!")
         except Exception as e:
             st.error(f"Error processing PDF: {e}")
 
 # Footer 
 st.markdown("---")
-st.markdown("© 2025 All-in-One Document Converter & Organizer | Created by Fiza")
+st.markdown("© 2025 All-in-One Document Converter & Organizer | Created by Fiza Asif")
